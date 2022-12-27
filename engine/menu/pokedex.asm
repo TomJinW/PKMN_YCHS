@@ -488,7 +488,7 @@ ShowPokedexDataInternal:
 HeightWeightText:
 	; db   "HT  ?", $60, "??", $61
 	; next "WT   ???lb@"
-	db   "身高 ?",".","??",$61
+	db   "身高  ?","??",$61
 	next"体重  ???",$01,$4B,"@"
 
 ; XXX does anything point to this?
@@ -607,7 +607,8 @@ DrawDexEntryOnScreen:
 
 	inc de ; de = address of feet (height)
 	ld a, [de] ; reads feet, but a is overwritten without being used
-	coord hl, 12, 6
+	; coord hl, 12, 6
+	coord hl, 13, 6
 	lb bc, 1, 2
 	call PrintNumber ; print feet (height)
 	; ld a, $60 ; feet symbol tile (one tick)
@@ -615,8 +616,10 @@ DrawDexEntryOnScreen:
 	ld [hl], a
 	inc de
 	inc de ; de = address of inches (height)
-	coord hl, 15, 6
-	lb bc, LEADING_ZEROES | 1, 2
+	; coord hl, 15, 6
+	; lb bc, LEADING_ZEROES | 1, 2
+	coord hl, 10, 6
+	lb bc, 1,1
 	call PrintNumber ; print inches (height)
 	ld a, $61 ; inches symbol tile (two ticks)
 	ld [hl], a

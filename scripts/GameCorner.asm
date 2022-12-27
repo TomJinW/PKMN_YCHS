@@ -479,29 +479,29 @@ CeladonGameCornerScript_48f1e:
 	ld hl, wd730
 	set 6, [hl]
 	coord hl, 11, 0
-	lb bc, 5, 7
+	lb bc, 4, 7
 	call TextBoxBorder
 	call UpdateSprites
 	coord hl, 12, 1
 	lb bc, 4, 7
 	call ClearScreenArea
-	coord hl, 12, 2
-	ld de, GameCornerMoneyText
-	call PlaceString
-	coord hl, 12, 3
+	; coord hl, 12, 2
+	; ld de, GameCornerMoneyText
+	; call PlaceString
+	coord hl, 12, 1
 	ld de, GameCornerBlankText1
 	call PlaceString
-	coord hl, 12, 3
+	coord hl, 12, 1
 	ld de, wPlayerMoney
 	ld c, 3 | MONEY_SIGN | LEADING_ZEROES
 	call PrintBCDNumber
-	coord hl, 12, 4
+	coord hl, 12, 3
 	ld de, GameCornerCoinText
 	call PlaceString
-	coord hl, 12, 5
+	coord hl, 12, 4
 	ld de, GameCornerBlankText2
 	call PlaceString
-	coord hl, 15, 5
+	coord hl, 14, 4
 	ld de, wPlayerCoins
 	ld c, $82
 	call PrintBCDNumber
@@ -513,7 +513,7 @@ GameCornerMoneyText:
 	db "MONEY@"
 
 GameCornerCoinText:
-	db "COIN@"
+	db "代币@"
 
 GameCornerBlankText1:
 	db "       @"

@@ -127,7 +127,7 @@ GetPrizeMenuId:
 	call PlaceString
 ; put prices on the right side of the textbox
 	ld de, wPrize1Price
-	coord hl, 13, 5
+	coord hl, 13, 4
 ; reg. c:
 ; [low nybble] number of bytes
 ; [bit 765 = %100] space-padding (not zero-padding)
@@ -136,11 +136,11 @@ GetPrizeMenuId:
 ; used by text-command $02)
 	call PrintBCDNumber
 	ld de, wPrize2Price
-	coord hl, 13, 7
+	coord hl, 13, 6
 	ld c, (1 << 7 | 2)
 	call PrintBCDNumber
 	ld de, wPrize3Price
-	coord hl, 13, 9
+	coord hl, 13, 8
 	ld c, (1 << 7 | 2)
 	jp PrintBCDNumber
 
@@ -154,7 +154,8 @@ PrintPrizePrice:
 	lb bc, 1, 7
 	call TextBoxBorder
 	call UpdateSprites
-	coord hl, 12, 0
+	; coord hl, 12, 0
+	coord hl, 8, 1
 	ld de, .CoinString
 	call PlaceString
 	coord hl, 13, 1
@@ -167,7 +168,8 @@ PrintPrizePrice:
 	ret
 
 .CoinString:
-	db "COIN@"
+	; db "COIN@"
+	db "代币@"
 
 .SixSpacesString:
 	db "      @"
