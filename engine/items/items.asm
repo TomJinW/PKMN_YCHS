@@ -918,7 +918,10 @@ ItemUseMedicine:
 	call GoBackToPartyMenu
 	jr .getPartyMonDataAddress
 .notUsingSoftboiled
+	ld a, 1 ;CHS_FIX 00 for opening party menu using items
+	ld [wIfPartyMenuOpenedDuringBattle], a;
 	call DisplayPartyMenu
+	
 .getPartyMonDataAddress
 	jp c, .canceledItemUse
 	ld hl, wPartyMons
@@ -2227,6 +2230,10 @@ ItemUsePPRestore:
 	ld [wUpdateSpritesEnabled], a
 	ld a, USE_ITEM_PARTY_MENU
 	ld [wPartyMenuTypeOrMessageID], a
+
+	ld a, 1 ;CHS_FIX 00 for opening party menu using items
+	ld [wIfPartyMenuOpenedDuringBattle],a ;
+	
 	call DisplayPartyMenu
 	jr nc, .chooseMove
 	jp .itemNotUsed

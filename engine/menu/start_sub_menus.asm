@@ -445,7 +445,7 @@ StartMenu_Item:
 	cp $02
 	jp z, .partyMenuNotDisplayed
 	call GBPalWhiteOutWithDelay3
-	call ReloadMapData
+	call ReloadMapData ;CHS_FIX 01 for reloading Maps after closing party Menu
 	call RestoreScreenTilesAndReloadTilePatterns
 	pop af
 	ld [wUpdateSpritesEnabled], a

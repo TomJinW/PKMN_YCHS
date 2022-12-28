@@ -3610,6 +3610,9 @@ wIMEBank:: ds 1
 wIMEAddr:: ds 2
 wBuffer2:: ds 6
 
+wIfPartyMenuOpenedDuringBattle:: ds 1
+wTempSpace:: ds 1
+
 SECTION "Stack", WRAMX
 wStack:: ; dfff
 
