@@ -120,22 +120,24 @@ TryingToLearn:
 	push hl
 	ld hl, WhichMoveToForgetText
 	call PrintText
-	coord hl, 4, 7
-	lb bc, 4, 14
+	coord hl, 9, 3
+	lb bc, 8, 9
+	; coord hl, 10, 3
+	; lb bc, 8, 10
 	call TextBoxBorder
-	coord hl, 6, 8
+	coord hl, 11, 5
 	ld de, wMovesString
 	ld a, [hFlags_0xFFFA]
-	set 2, a
+	set 4, a
 	ld [hFlags_0xFFFA], a
 	call PlaceString
 	ld a, [hFlags_0xFFFA]
-	res 2, a
+	res 4, a
 	ld [hFlags_0xFFFA], a
 	ld hl, wTopMenuItemY
-	ld a, 8
-	ld [hli], a ; wTopMenuItemY
 	ld a, 5
+	ld [hli], a ; wTopMenuItemY
+	ld a, 10
 	ld [hli], a ; wTopMenuItemX
 	xor a
 	ld [hli], a ; wCurrentMenuItem
@@ -146,10 +148,10 @@ TryingToLearn:
 	ld [hli], a ; wMenuWatchedKeys
 	ld [hl], 0 ; wLastMenuItem
 	ld hl, hFlags_0xFFFA
-	set 1, [hl]
+	set 2, [hl]
 	call HandleMenuInput
 	ld hl, hFlags_0xFFFA
-	res 1, [hl]
+	res 2, [hl]
 	push af
 	call LoadScreenTilesFromBuffer1
 	pop af

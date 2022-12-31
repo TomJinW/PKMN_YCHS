@@ -3148,17 +3148,26 @@ _TeachMachineMoveText::
 	done
 
 _MonCannotLearnMachineMoveText::
+	; TX_RAM wcd6d
+	; text " is not"
+	; line "compatible with"
+	; cont "@"
+	; TX_RAM wcf4b
+	; text "."
 	TX_RAM wcd6d
-	text " is not"
-	line "compatible with"
-	cont "@"
+	text ""
+	line "和@"
 	TX_RAM wcf4b
-	text "."
+	text "不匹配！"
 
-	para "It can't learn"
-	line "@"
+	; para "It can't learn"
+	; line "@"
+	; TX_RAM wcf4b
+	; text "."
+	para "@"
 	TX_RAM wcf4b
-	text "."
+	text ""
+	line "是学不会的！"
 	prompt
 
 _ItemUseNotTimeText::

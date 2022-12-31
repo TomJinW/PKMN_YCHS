@@ -5,7 +5,7 @@ ClearBillPCMenuMain_CHS:
 	call ClearScreenArea
 	coord hl, 2, $0B
 	ld b, 2
-	ld c, 2
+	ld c, 4
 	call ClearScreenArea
 	ret
 
@@ -145,7 +145,8 @@ BillsPCMenu:
 	lb bc, BANK(PokeballTileGraphics), $01
 	call CopyVideoData
 	call LoadScreenTilesFromBuffer2DisableBGTransfer
-	call ReloadTilesetTilePatterns
+	; call ReloadTilesetTilePatterns
+
 	coord hl, 0, 12
 	lb bc, 4, 18
 	call TextBoxBorder
@@ -175,8 +176,8 @@ BillsPCMenu:
 	ld [hli], a ; wListScrollOffset
 	ld [hl], a ; wMenuWatchMovingOutOfBounds
 	ld [wPlayerMonNumber], a
-	coord hl, 9, 14
-	lb bc, 2, 9
+	coord hl, $0D, 14
+	lb bc, 2, 5
 	call TextBoxBorder
 	ld a, [wCurrentBoxNum]
 	and $7f
@@ -191,8 +192,15 @@ BillsPCMenu:
 .singleDigitBoxNum
 	add "1"
 .next
+	ld [wTempSpace],a
+	ld a, $01 ; CHS_Fix 04 push text to stack
+	lb bc, 2, 8 ;
+	coord hl, 2, 1 ;
+	call DFSStaticize ;
+	ld a,[wTempSpace]
+
 	Coorda 18, 16
-	coord hl, 10, 16
+	coord hl, 14, 16
 	ld de, BoxNoPCText
 	call PlaceString
 	ld a, 1
@@ -216,6 +224,7 @@ BillsPCMenu:
 	jp z, BillsPCPrintBox
 
 ExitBillsPC:
+	call ClearBillPCMenuMain_CHS
 	ld a, [wFlags_0xcd60]
 	bit 3, a ; accessing Bill's PC through another PC?
 	jr nz, .next
@@ -235,7 +244,7 @@ ExitBillsPC:
 	ret
 
 BillsPCPrintBox:
-	call ClearBillPCMenuMain_CHS
+	; call ClearBillPCMenuMain_CHS
 	callab PrintPCBox
 	jp BillsPCMenu
 
@@ -393,7 +402,8 @@ BillsPCRelease:
 	jp BillsPCMenu
 
 BillsPCChangeBox:
-	call ClearBillPCMenuMain_CHS
+	call ClearSprites
+	; call ClearBillPCMenuMain_CHS
 	callba ChangeBox
 	jp BillsPCMenu
 
@@ -430,7 +440,7 @@ BillsPCMenuText:
 	db "@"
 
 BoxNoPCText:
-	db "BOX No.@"
+	db "盒子@"
 
 KnowsHMMove::
 ; returns whether mon with party index [wWhichPokemon] knows an HM move
@@ -533,6 +543,7 @@ DisplayDepositWithdrawMenu:
 	lb bc, 6, 8
 	coord hl, 6, 3
 	call DFSStaticize
+
 	call SaveScreenTilesToBuffer1
 	ld a, [wParentMenuItem]
 	and a

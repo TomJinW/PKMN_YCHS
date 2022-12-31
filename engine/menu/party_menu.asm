@@ -138,7 +138,7 @@ RedrawPartyMenu_:
 	ld de, .notAbleToLearnMoveText
 .placeMoveLearnabilityString
 	push hl
-	ld bc, 10 ; 20 + 9 ; down 1 row and right 9 columns
+	ld bc, 11 ; 20 + 9 ; down 1 row and right 9 columns
 	add hl, bc
 	call PlaceString
 	pop hl
@@ -167,7 +167,7 @@ RedrawPartyMenu_:
 .FullSpaceText
 	db "　@"
 .ableToLearnMoveText
-	db "能学@"
+	db "能学习@"
 .notAbleToLearnMoveText
 	db "不能学@"
 .evolutionStoneMenu
@@ -218,15 +218,18 @@ RedrawPartyMenu_:
 .placeEvolutionStoneString
 	pop hl
 	push hl
-	ld bc, 20 + 9 ; down 1 row and right 9 columns
+	; ld bc, 20 + 9 ; down 1 row and right 9 columns
+	ld bc, 11
 	add hl, bc
 	call PlaceString
 	pop hl
 	jp .printLevel
 .ableToEvolveText
-	db "ABLE@"
+	; db "ABLE@"
+	db "能使用！@"
 .notAbleToEvolveText
-	db "NOT ABLE@"
+	; db "NOT ABLE@"
+	db "不能使用@"
 .afterDrawingMonEntries
 	ld b, SET_PAL_PARTY_MENU
 	call RunPaletteCommand
